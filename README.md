@@ -3,8 +3,7 @@
 A complete, working Library Management System built using **Django 5.x** and **Python 3.11+**. This system features role-based access control (RBAC), a paginated catalog with robust search capabilities, and transaction-safe borrowing/return circulation workflows.
 
 ## Live Demo & Landing Page
-- **Static Landing Page (GitHub Pages):** [https://informatica15.github.io/library-management-system/](https://informatica15.github.io/library-management-system/)
-- **Live Web App (Render):** [https://library-management-system-z1w6.onrender.com](https://library-management-system-z1w6.onrender.com) (Note: On the free tier, the initial page load can take 30-60 seconds to wake up the server from a cold state).
+- **Live Web App (Render):** [https://library-management-system-z1w6.onrender.com]([https://library-management-system-z1w6.onrender.com](https://library-management-system-u7rv.onrender.com/)) (Note: On the free tier, the initial page load can take 30-60 seconds to wake up the server from a cold state).
 
 ---
 

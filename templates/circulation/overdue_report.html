@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}Overdue Reports{% endblock %}
+
+{% block content %}
+<div class="space-y-6 animate-fade-in-up">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800">Overdue Reports</h1>
+            <p class="text-slate-500 text-sm">List of all active loans past their return due dates</p>
+        </div>
+        <div class="px-4 py-2 bg-red-50 border border-red-200 rounded-xl text-red-700 font-semibold text-sm flex items-center gap-2">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-red-500"></i>
+            <span>{{ overdue_loans|length }} Total Overdue Items</span>
+        </div>
+    </div>
+
+    <!-- Overdue Table Panel -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            {% if overdue_loans %}
+            <table class="w-full text-left text-sm border-collapse">
+                <thead>
+                    <tr class="bg-slate-50 text-slate-400 font-semibold border-b border-slate-100 text-xs uppercase tracking-wider">
+                        <th class="p-4">Book Info</th>
+                        <th class="p-4">Borrower Name</th>
+                        <th class="p-4">Checkout Date</th>
+                        <th class="p-4">Due Date</th>
+                        <th class="p-4 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for record in overdue_loans %}
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="p-4">
+                            <div class="font-semibold text-slate-800">{{ record.book.title }}</div>
+                            <div class="text-xs text-slate-400 font-mono">ISBN: {{ record.book.ISBN }}</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-semibold text-slate-700">{{ record.user.get_full_name|default:record.user.username }}</div>
+                            <div class="text-xs text-slate-400">@{{ record.user.username }}</div>
+                        </td>
+                        <td class="p-4 text-slate-500 font-mono">{{ record.issue_date|date:"M d, Y" }}</td>
+                        <td class="p-4 font-semibold text-red-600 font-mono">{{ record.due_date|date:"M d, Y" }}</td>
+                        <td class="p-4 text-right">
+                            <form action="{% url 'circulation:return_book_direct' record.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="py-1.5 px-4 bg-red-50 hover:bg-red-600 hover:text-white text-red-600 rounded-xl text-xs font-semibold transition-colors shadow-sm">
+                                    Process Return
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="p-12 text-center text-slate-500">
+                <div class="inline-flex p-4 bg-emerald-50 text-emerald-600 rounded-full mb-4">
+                    <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg">No Overdue Books</h3>
+                <p class="text-slate-500 text-sm mt-1">Excellent! All borrowed books are currently within their active lending terms.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+<div class="space-y-6 animate-fade-in-up">
+    <!-- Back to catalog link -->
+    <div>
+        <a href="{% url 'catalog:book_list' %}" class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-purple-600 transition-colors font-medium">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Back to Catalog</span>
+        </a>
+    </div>
+
+    <!-- Main Detail Panel -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden grid grid-cols-1 md:grid-cols-3 gap-8 p-6 md:p-8">
+        <!-- Left: Image Cover -->
+        <div class="bg-slate-50 rounded-xl overflow-hidden aspect-[2/3] max-w-sm mx-auto w-full shadow-inner border border-slate-100 flex items-center justify-center">
+            {% if book.cover_image %}
+            <img src="{{ book.cover_image }}" alt="{{ book.title }} Cover" class="w-full h-full object-cover">
+            {% else %}
+            <div class="flex flex-col items-center justify-center text-slate-400 p-8">
+                <i data-lucide="book" class="w-16 h-16 mb-2 text-slate-300"></i>
+                <span class="text-xs text-center font-medium">No cover image available</span>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Right: Book Details -->
+        <div class="md:col-span-2 flex flex-col justify-between space-y-6">
+            <div class="space-y-4">
+                <div>
+                    <span class="inline-block text-xs font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
+                        {{ book.category.name|default:"Uncategorized" }}
+                    </span>
+                </div>
+                
+                <h1 class="text-3xl font-extrabold text-slate-800 leading-tight">{{ book.title }}</h1>
+                <p class="text-lg text-slate-600 font-medium">by {{ book.author }}</p>
+                
+                <div class="grid grid-cols-2 gap-4 max-w-md bg-slate-50 p-4 rounded-xl border border-slate-100">
+                    <div>
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">ISBN Number</span>
+                        <span class="font-mono text-sm text-slate-800 font-semibold">{{ book.ISBN }}</span>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Date Added</span>
+                        <span class="text-sm text-slate-800 font-semibold">{{ book.added_date|date:"F d, Y" }}</span>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Copies</span>
+                        <span class="text-sm text-slate-800 font-semibold">{{ book.total_copies }}</span>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Available Copies</span>
+                        <span class="text-sm text-slate-800 font-semibold flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full {% if book.available_copies > 0 %}bg-emerald-500{% else %}bg-red-500{% endif %}"></span>
+                            {{ book.available_copies }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions Panel -->
+            <div class="border-t border-slate-100 pt-6 space-y-4">
+                {% if user.profile.role == 'LIBRARIAN' %}
+                    <!-- Admin Actions -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="{% url 'circulation:issue_book' %}?book={{ book.id }}" 
+                           class="btn-primary py-2.5 px-6 rounded-xl font-semibold text-sm flex items-center gap-2 shadow-md">
+                            <i data-lucide="arrow-right-left" class="w-4 h-4"></i>
+                            <span>Issue This Book</span>
+                        </a>
+                        <a href="{% url 'catalog:book_edit' book.id %}" 
+                           class="py-2.5 px-5 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl font-semibold text-sm flex items-center gap-2 transition-colors">
+                            <i data-lucide="edit" class="w-4 h-4 text-slate-500"></i>
+                            <span>Edit details</span>
+                        </a>
+                        <a href="{% url 'catalog:book_delete' book.id %}" 
+                           class="py-2.5 px-5 border border-red-200 hover:bg-red-50 text-red-600 rounded-xl font-semibold text-sm flex items-center gap-2 transition-colors">
+                            <i data-lucide="trash-2" class="w-4 h-4 text-red-500"></i>
+                            <span>Delete book</span>
+                        </a>
+                    </div>
+                {% else %}
+                    <!-- Member Actions -->
+                    <div>
+                        {% if book.available_copies > 0 %}
+                            <form action="{% url 'circulation:borrow_book_direct' book.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-primary py-3 px-8 rounded-xl font-semibold text-sm flex items-center gap-2 shadow-md hover:scale-[1.01] transition-transform">
+                                    <i data-lucide="bookmark-plus" class="w-5 h-5"></i>
+                                    <span>Borrow / Checkout Book</span>
+                                </button>
+                            </form>
+                        {% else %}
+                            <div class="bg-red-50 text-red-700 px-4 py-3 rounded-xl border border-red-100 inline-flex items-center gap-2 text-sm">
+                                <i data-lucide="alert-circle" class="w-5 h-5 text-red-500"></i>
+                                <span>All copies are currently borrowed. You can check back later!</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

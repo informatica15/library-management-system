@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Delete Book{% endblock %}
+
+{% block content %}
+<div class="space-y-6 max-w-md mx-auto py-10 animate-fade-in-up">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xl p-8 text-center">
+        <div class="inline-flex p-3 bg-red-50 text-red-600 rounded-2xl mb-4">
+            <i data-lucide="trash-2" class="w-8 h-8"></i>
+        </div>
+        
+        <h1 class="text-xl font-bold text-slate-800">Delete Book</h1>
+        <p class="text-slate-500 text-sm mt-2 leading-relaxed">
+            Are you sure you want to permanently delete the book <strong class="text-slate-800">"{{ object.title }}"</strong> from the database? This action cannot be undone.
+        </p>
+
+        <form method="post" class="mt-6 flex gap-3">
+            {% csrf_token %}
+            <a href="{% url 'catalog:book_detail' object.id %}" class="flex-1 text-center py-2.5 border border-slate-200 hover:bg-slate-50 rounded-xl text-slate-700 text-sm font-semibold transition-colors">
+                Cancel
+            </a>
+            <button type="submit" class="flex-1 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-semibold transition-colors shadow-md">
+                Delete Confirm
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

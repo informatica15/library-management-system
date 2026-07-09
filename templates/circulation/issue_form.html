@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Issue Book{% endblock %}
+
+{% block content %}
+<div class="space-y-6 max-w-2xl mx-auto animate-fade-in-up">
+    <!-- Back Link -->
+    <div>
+        <a href="{% url 'circulation:librarian_dashboard' %}" class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-purple-600 transition-colors font-medium">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Back to Dashboard</span>
+        </a>
+    </div>
+
+    <!-- Form Panel -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
+        <div class="flex items-center gap-3 border-b border-slate-100 pb-5 mb-6">
+            <div class="p-2.5 bg-purple-50 text-purple-600 rounded-xl">
+                <i data-lucide="arrow-right-left" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold text-slate-800">Issue Book to Member</h1>
+                <p class="text-slate-500 text-xs">Record a new book loan for a library member</p>
+            </div>
+        </div>
+
+        <form method="post" class="space-y-5">
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+            <div class="p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl">
+                {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Form fields loop -->
+            {% for field in form %}
+            <div class="space-y-1">
+                <label for="{{ field.id_for_label }}" class="block text-xs font-semibold text-slate-600 uppercase tracking-wider">
+                    {{ field.label }}
+                </label>
+                <div>
+                    {{ field }}
+                </div>
+                {% if field.help_text %}
+                <p class="text-[10px] text-slate-400 mt-0.5 leading-relaxed">{{ field.help_text|safe }}</p>
+                {% endif %}
+                {% if field.errors %}
+                <p class="text-red-600 text-xs mt-1">{{ field.errors.0 }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <!-- Actions buttons -->
+            <div class="flex items-center justify-end gap-3 pt-5 border-t border-slate-100 mt-6">
+                <a href="{% url 'circulation:librarian_dashboard' %}" class="py-2.5 px-5 border border-slate-200 hover:bg-slate-50 rounded-xl text-slate-700 text-sm font-semibold transition-colors">
+                    Cancel
+                </a>
+                <button type="submit" class="btn-primary py-2.5 px-6 rounded-xl text-sm font-semibold flex items-center gap-2 shadow-md">
+                    <i data-lucide="check-circle" class="w-4 h-4"></i>
+                    <span>Issue Book</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

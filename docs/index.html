@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Library - Modern Django Library Management System</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: {
+                            50: '#F5F1FB',
+                            100: '#EDE7F6',
+                            200: '#D1C4E9',
+                            300: '#B39DDB',
+                            400: '#9575CD',
+                            600: '#6C4AB6', // Primary Accent
+                            700: '#5E35B1',
+                            800: '#512DA8',
+                            900: '#311B92',
+                        },
+                        slate: {
+                            800: '#2d3748',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 80% 20%, rgba(209, 196, 233, 0.4) 0%, rgba(248, 250, 252, 0) 60%);
+        }
+        .pulse-light {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between hero-gradient text-slate-800">
+
+    <!-- Top Navbar -->
+    <nav class="max-w-7xl mx-auto w-full px-6 py-5 flex items-center justify-between">
+        <div class="flex items-center gap-2.5 font-bold text-xl text-purple-600">
+            <div class="p-2 bg-purple-100 rounded-xl text-purple-600">
+                <i data-lucide="library" class="w-6 h-6"></i>
+            </div>
+            <span>Aura Library</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="https://github.com/informatica15/library-management-system" target="_blank"
+               class="text-sm font-semibold text-slate-600 hover:text-purple-600 transition-colors flex items-center gap-2">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                <span class="hidden sm:inline">View Source</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Hero Content -->
+    <main class="max-w-5xl mx-auto w-full px-6 py-12 sm:py-20 flex-1 flex flex-col items-center justify-center text-center space-y-8">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-purple-50 border border-purple-200 rounded-full text-purple-700 text-xs font-bold uppercase tracking-wider shadow-sm animate-bounce">
+            <span class="flex h-2 w-2 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+            </span>
+            <span>Live Web Application</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-800 tracking-tight max-w-3xl leading-[1.15]">
+            A Premium Library System Built with <span class="text-purple-600">Django 5.x</span>
+        </h1>
+        
+        <!-- Description -->
+        <p class="text-slate-500 text-base sm:text-lg max-w-2xl leading-relaxed">
+            A production-ready, fully responsive library management system featuring role-based access controls, interactive catalogs, atomic borrowing workflows, and detailed administrative reports.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row items-center gap-4 pt-4 justify-center w-full">
+            <div class="relative group">
+                <a href="https://library-management-system-z1w6.onrender.com" target="_blank" 
+                   class="w-full sm:w-auto px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg shadow-purple-600/20 group-hover:scale-[1.02] transition-transform duration-200">
+                    <i data-lucide="external-link" class="w-5 h-5"></i>
+                    <span>Launch Live Demo</span>
+                </a>
+            </div>
+            <a href="https://github.com/informatica15/library-management-system" target="_blank"
+               class="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-sm transition-colors">
+                <i data-lucide="github" class="w-5 h-5"></i>
+                <span>Explore Source Code</span>
+            </a>
+        </div>
+
+        <!-- Cold start notice -->
+        <p class="text-xs text-slate-400 max-w-sm flex items-center gap-1.5 justify-center bg-white px-4 py-2 rounded-xl border border-slate-100 shadow-sm">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-500 flex-shrink-0 animate-spin"></i>
+            <span><strong>Note:</strong> Free-tier servers take ~30-60s to wake up on first visit.</span>
+        </p>
+
+        <!-- Product Preview Mockup -->
+        <div class="w-full pt-10">
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-2xl p-4 sm:p-5 max-w-4xl mx-auto overflow-hidden">
+                <div class="bg-slate-50 rounded-2xl border border-slate-100 p-6 sm:p-8 text-left grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Column 1: Feature List -->
+                    <div class="space-y-6">
+                        <h3 class="font-extrabold text-slate-800 text-lg uppercase tracking-wider text-purple-600">Core Architecture</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <div class="p-1 bg-purple-100 text-purple-600 rounded-lg mt-0.5">
+                                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-sm">Role-Based Access Controls (RBAC)</h4>
+                                    <p class="text-xs text-slate-500">Decorators and mixins separating Admin/Librarian views from borrowing Members.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="p-1 bg-purple-100 text-purple-600 rounded-lg mt-0.5">
+                                    <i data-lucide="search" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-sm">Elastic Catalog Search</h4>
+                                    <p class="text-xs text-slate-500">Paginated book catalog indexed for rapid queries on titles, authors, and ISBNs.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="p-1 bg-purple-100 text-purple-600 rounded-lg mt-0.5">
+                                    <i data-lucide="zap" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-sm">Atomic Borrowing & Returns</h4>
+                                    <p class="text-xs text-slate-500">Atomic database transactions ensuring copy quantities and return constraints remain correct.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 2: Tech Badges -->
+                    <div class="space-y-6 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-extrabold text-slate-800 text-lg uppercase tracking-wider text-purple-600 mb-4">Technology Stack</h3>
+                            <div class="flex flex-wrap gap-2.5">
+                                <span class="px-3.5 py-1.5 bg-slate-100 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-blue-500"></span> Python 3.11+
+                                </span>
+                                <span class="px-3.5 py-1.5 bg-slate-100 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Django 5.x
+                                </span>
+                                <span class="px-3.5 py-1.5 bg-slate-100 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-indigo-500"></span> PostgreSQL
+                                </span>
+                                <span class="px-3.5 py-1.5 bg-slate-100 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-purple-500"></span> Tailwind CSS
+                                </span>
+                                <span class="px-3.5 py-1.5 bg-slate-100 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-amber-500"></span> SQLite (Dev)
+                                </span>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50/60 rounded-2xl p-4 border border-purple-100 text-xs text-slate-500 space-y-2">
+                            <p class="font-semibold text-purple-800">🚀 Ready to Deploy</p>
+                            <p>Pre-configured with a Procfile and build script for simple deployment to Render free tier services.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto w-full px-6 py-8 border-t border-slate-200 mt-12 text-center text-xs text-slate-400">
+        <p>&copy; 2026 Aura Library LMS. All rights reserved.</p>
+    </footer>
+
+    <!-- Lucide Icon script from CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # Library Management System (LMS)
 
-A complete, working Library Management System built using **Django 5.x** and **Python 3.11+**. Aura Library features role-based access control (RBAC), a paginated catalog with robust search capabilities, and transaction-safe borrowing/return circulation workflows.
+A complete, working Library Management System built using **Django 5.x** and **Python 3.11+**. This system features role-based access control (RBAC), a paginated catalog with robust search capabilities, and transaction-safe borrowing/return circulation workflows.
 
 ## Live Demo & Landing Page
 - **Static Landing Page (GitHub Pages):** [https://informatica15.github.io/library-management-system/](https://informatica15.github.io/library-management-system/)
